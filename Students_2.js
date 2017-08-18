@@ -42,7 +42,61 @@ for (let s of roster) {
     console.log("> " + s);
 }
 
-let smartnessFunction = Student.smarterThan(3.4);
-console.log("about to filter students");
-console.log("" + roster.filter(smartnessFunction));
+//let smartnessFunction = Student.smarterThan(3.4);
+//console.log("about to filter students");
+//console.log("" + roster.filter(smartnessFunction));
+//
+function studentIsSmarterThan(t, s) {
+    return s.gpa > t;
+}
+
+function getSmarterThan(threshold) {
+    return function (s) {
+        return s.gpa > threshold;
+    }
+}
+
+console.log("-----------------------------------");
+//console.log("" + roster.filter(studentIsSmarterThan));
+roster
+        .filter(studentIsSmarterThan.bind(undefined, 3.4))
+        .forEach(s=>console.log(s.toString()));
+
+function showStuff(x) {
+    console.log("x is " + x);
+    console.log(" this is " + this);
+}
+
+showStuff("Hello");
+
+let f = showStuff.bind("Huh?", "Bonjour");
+f();
+
+showStuff.call("Really?", "One", "Two");
+showStuff.apply("Again?", ["Un", "Deux"]);
+
+function showMyName() {
+    console.log("my name is " + this.name);
+}
+
+//showMyName();
+showMyName.call({name: "Freddy"});
+
+student.showTheName = showMyName;
+fred.showTheName();
+
+jim.showTheName();
+
+let myBusiness = {
+    name: "The best waffle company",
+    lineOfBusiness: "sugary goodness",
+    gpa:"Irrelevant",
+    courses:"Down at the horse track"
+};
+
+myBusiness.showMeYourName = showMyName;
+myBusiness.showMeYourName();
+myBusiness.toString = student.toString;
+
+console.log("mb is " + myBusiness);
 
